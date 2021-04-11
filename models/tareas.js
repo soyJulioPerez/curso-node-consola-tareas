@@ -33,7 +33,9 @@ class Tareas {
     console.log();
 
     tareas.forEach( (tarea,i) => {
-      const status = (tarea.completadoEn) ? 'completada'.green : 'pendiente'.red;
+      const status = (tarea.completadoEn)
+            ? 'completada'.green + ' - ' + tarea.completadoEn
+            : 'pendiente'.red;
       const linea = (i+1) + `. ${tarea.desc} :: ${status}`;
       console.log(linea);
     });
@@ -44,6 +46,13 @@ class Tareas {
 
     const tareas = this.listadoArr.filter(tarea => completadas === !!tarea.completadoEn);
     this.listarTareas(tareas);
+
+  }
+
+  borrarTarea( id = '') {
+    if (this._listado[id]) {
+      delete this._listado[id];
+    }
 
   }
 

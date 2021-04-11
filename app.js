@@ -1,7 +1,7 @@
 require('colors');
 
 const { guardarDB, leerDB } = require('./helpers/fileService');
-const { inquirerMenu, pausa, leerInput } = require('./helpers/inquirer');
+const { inquirerMenu, pausa, leerInput, listarTareas, confirmar } = require('./helpers/inquirer');
 const Tareas = require('./models/tareas');
 
 const main = async() => {
@@ -38,7 +38,16 @@ const main = async() => {
         guardarDB(tareas.listadoArr);
         break;
       case '6':
-        guardarDB(tareas.listadoArr);
+        const id = await listarTareas(tareas.listadoArr);
+        // id === '0' Canceló el proceso
+        if (id !== '0') {
+          const ok = await confirmar('Está seguro de eliminar?');
+          if (ok){
+            await tareas.borrarTarea(id);
+            console.log('Tarea eliminada');
+            guardarDB(tareas.listadoArr);
+          }
+        }
         break;
 
       default:
