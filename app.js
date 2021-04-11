@@ -23,15 +23,9 @@ const main = async() => {
         break;
 
       case '2':
-        console.log(tareas.listadoArr);
+        tareas.listarTareas();
         break;
 
-      case '3':
-
-        break;
-      case '3':
-
-        break;
       case '5':
         guardarDB(tareas.listadoArr);
         break;
