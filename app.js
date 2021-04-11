@@ -1,12 +1,16 @@
 require('colors');
 
-const { guardarDB } = require('./helpers/guardarArchivo');
+const { guardarDB, leerDB } = require('./helpers/fileService');
 const { inquirerMenu, pausa, leerInput } = require('./helpers/inquirer');
 const Tareas = require('./models/tareas');
 
 const main = async() => {
   let opt = '';
   const tareas = new Tareas();
+  const tareasDB = leerDB();
+  if (tareasDB) {
+    tareas.cargarTareas(tareasDB);
+  }
 
   do {
     console.clear()
@@ -15,7 +19,7 @@ const main = async() => {
       case '1': // crear tarea
         const desc = await leerInput('Descripción');
         tareas.crearTarea(desc);
-
+        guardarDB(tareas.listadoArr);
         break;
 
       case '2':
@@ -25,11 +29,20 @@ const main = async() => {
       case '3':
 
         break;
+      case '3':
+
+        break;
+      case '5':
+        guardarDB(tareas.listadoArr);
+        break;
+      case '6':
+        guardarDB(tareas.listadoArr);
+        break;
 
       default:
         break;
     }
-    guardarDB(tareas.listadoArr);
+
     await pausa();
 
   } while (opt !== '0');
