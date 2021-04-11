@@ -1,4 +1,5 @@
-const Tarea = require("./tarea");
+const Tarea = require('./tarea');
+require('colors');
 
 /*
 * _listado
@@ -28,6 +29,23 @@ class Tareas {
     tareas.forEach(tarea => this._listado[tarea.id] = tarea);
   }
 
+  listarTareas(tareas = []) {
+    console.log();
+
+    tareas.forEach( (tarea,i) => {
+      const status = (tarea.completadoEn) ? 'completada'.green : 'pendiente'.red;
+      const linea = (i+1) + `. ${tarea.desc} :: ${status}`;
+      console.log(linea);
+    });
+  }
+
+  listarPorStatus(completadas = true) {
+    console.log();
+
+    const tareas = this.listadoArr.filter(tarea => completadas === !!tarea.completadoEn);
+    this.listarTareas(tareas);
+
+  }
 
 }
 

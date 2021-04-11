@@ -23,7 +23,15 @@ const main = async() => {
         break;
 
       case '2':
-        tareas.listarTareas();
+        tareas.listarTareas(tareas.listadoArr);
+        break;
+
+      case '3':
+        tareas.listarPorStatus(true);
+        break;
+
+      case '4':
+        tareas.listarPorStatus(false);
         break;
 
       case '5':
